@@ -1,9 +1,48 @@
-* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
-
-.messages {
-	border: 2px solid #000000;
+* {
+    box-sizing:border-box;
 }
 
-input {
-	border: 1px solid #cccccc;
+body {
+    font-family:sans-serif;
+    font-size:0.9em;
+    margin:0;
+    padding:0;
+}
+
+.bodyWrapper {
+    padding:1em;
+}
+
+.messages {
+    border-radius:0.25em;
+    border:1px solid lightGray;
+    padding:0.5em;
+}
+
+.messages .message {
+    background-color:lightGray;
+    padding:0.25em 0.5em;
+    border-radius:0.25em;
+}
+
+input.name {
+    margin:1em 0 0 0;
+    padding:0.5em 1em;
+
+    border-radius:0.25em;
+    border:1px solid lightGray;
+}
+
+input.message-text {
+    margin:1em 0 0 0;
+    padding:0.5em 1em;
+    width:100%;
+
+    border-radius:0.25em;
+    border:1px solid lightGray;
+}
+
+h3 {
+    margin:0 0 0.25em 0;
+    font-size:0.9em;
 }

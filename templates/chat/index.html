@@ -5,15 +5,15 @@
 		<link rel="stylesheet" type="text/css" href="/css/chat.css"/>
 	</head>
 	<body>
-		<h2>This is Chatty Chatty Chat Chat</h2> 
+		<div class="bodyWrapper">
+			<h3>This is Chatty Chatty Chat Chat</h3>
 
-		<input placeholder="Your name..." class="name"/>
-		<section class="messages">
-			
-		</section>
+			<input placeholder="Your name..." class="name"/>
+			<section class="messages"></section>
 
-		<input placeholder="Your message..." class="message-text"> </input>
-		<a class="send">Send</a>
+			<input placeholder="Your message..." class="message-text"> </input>
+			<a class="send">Send</a>
+		</div>
 
 		<script src="/lib/zepto.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
@@ -37,12 +37,18 @@
 		  		}
 		  		console.log("clicked! " + $input.val());
 		  		socket.emit("message", {text: text, name: name});
-		  	})
+		  	});
 
-		  	
+		  	$input.on('keypress', function(event){
+                if(event.which == 13) {
+                    socket.emit('message', {
+                    	name: $name.val(),
+                    	text: $input.val()
+                    });
+                    $input.val('');
+                }
+            });
 		});
-		  
-
 		</script>
 	</body>
 </html>
