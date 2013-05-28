@@ -21,23 +21,35 @@
 			var $messages = $(".messages"), 
 				$input = $("input.message-text"),
 				$name = $("input.name"),
-				socket = io.connect('http://10.10.26.181');
+				socket = io.connect('http://10.10.26.181'),
+				buildMessage = function(data) {
+					return '<div class="message"><span class="name">' +data.name +':</span>' + data.text + '</div>';
+				}
+
 		  	
 		  	socket.on('message', function (data) {
-		    	$messages.append('<div class="message"><span class="name">' +data.name +':</span>' + data.text + '</div>');
+		    	$messages.append(buildMessage(data));
 		  	});	
+		  	socket.on('history', function (dataList) {
+		  		var messages = "";
+		  		for(var i = 0; i < dataList.length; i++) {
+		  			messages += buildMessage(dataList[i]);
+		  		}
+		  		$messages.append(messages);
+		  	});
 
 		  	$input.on('keypress', function(event){
 
                 if(event.which == 13) {
                 	var text = $input.val(),
 		  				name = $name.val();
+
 		  			if(name === undefined || name === "") {
 		  				name = "Anonymous"
 		  			}
                     socket.emit('message', {
-                    	name: $name.val(),
-                    	text: $input.val()
+                    	name: name,
+                    	text: text
                     });
                     $input.val('');
                 }
