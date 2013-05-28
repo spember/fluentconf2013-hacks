@@ -26,18 +26,26 @@
 				socket = io.connect('http://10.10.26.181'),
 				buildMessage = function(data) {
 					return '<div class="message"><span class="name">' +data.name +':</span>' + data.text + '</div>';
-				}
+				},
+				scrollToBottom = function() {
+			    	$messages[0].scrollTop = $messages[0].scrollHeight - $messages[0].offsetHeight;
+				};
 
 		  	
 		  	socket.on('message', function (data) {
 		    	$messages.append(buildMessage(data));
-		  	});	
+
+		    	scrollToBottom();
+		  	});
+
 		  	socket.on('history', function (dataList) {
 		  		var messages = "";
 		  		for(var i = 0; i < dataList.length; i++) {
 		  			messages += buildMessage(dataList[i]);
 		  		}
 		  		$messages.append(messages);
+
+		  		scrollToBottom();
 		  	});
 
 		  	$input.on('keypress', function(event){
