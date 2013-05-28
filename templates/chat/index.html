@@ -5,12 +5,14 @@
 		<link rel="stylesheet" type="text/css" href="/css/chat.css"/>
 	</head>
 	<body>
-		<h2>This is Chatty Chatty Chat Chat</h2>
+		<h2>This is Chatty Chatty Chat Chat</h2> 
+
+		<input placeholder="Your name..." class="name"/>
 		<section class="messages">
 			
 		</section>
 
-		<input> </input>
+		<input placeholder="Your message..." class="message-text"> </input>
 		<a class="send">Send</a>
 
 		<script src="/lib/zepto.min.js"></script>
@@ -18,17 +20,23 @@
 		<script>
 		$(function () {
 			var $messages = $(".messages"), 
-				$input = $("input").first(),
+				$input = $("input.message-text"),
+				$name = $("input.name"),
 				$send = $(".send"),
 				socket = io.connect('http://10.10.26.181');
 		  	
 		  	socket.on('message', function (data) {
-		    	$messages.append('<div class="message">' + data.text + '</div>');
+		    	$messages.append('<div class="message"><span class="name">' +data.name +':</span>' + data.text + '</div>');
 		  	});	
 
 		  	$send.on('click', function () {
+		  		var text = $input.val(),
+		  			name = $name.val();
+		  		if(name === undefined || name === "") {
+		  			name = "Anonymous"
+		  		}
 		  		console.log("clicked! " + $input.val());
-		  		socket.emit("message", {text: $input.val()});
+		  		socket.emit("message", {text: text, name: name});
 		  	})
 
 		  	

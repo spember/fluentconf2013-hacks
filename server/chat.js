@@ -32,7 +32,7 @@ io.sockets.on('connection', function (socket) {
 	console.log("Connect received");
 	sockets.push(socket);
 	console.log(sockets.length);
-  socket.emit('message', { text: 'Welcome' });
+  socket.emit('message', { name: "Server",  text: 'Welcome' });
   socket.on('message', function (data) {
     for (var i = 0; i< sockets.length; i++) {
     	sockets[i].emit("message", data);	
