@@ -23,10 +23,11 @@ body {
     background-color:lightGray;
     padding:0.25em 0.5em;
     border-radius:0.25em;
+    margin:0 0 0.25em 0;
 }
 
 input.name {
-    margin:1em 0 0 0;
+    margin:0 0 1em 0;
     padding:0.5em 1em;
 
     border-radius:0.25em;
