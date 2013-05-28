@@ -14,6 +14,12 @@ body {
 }
 
 .messages {
+    overflow:scroll;
+    position:fixed;
+    top:3em;
+    bottom:5em;
+    right:1em;
+    left:1em;
     border-radius:0.25em;
     border:1px solid lightGray;
     padding:0.5em;
@@ -31,20 +37,31 @@ body {
 }
 
 input.name {
-    margin:0 0 1em 0;
+    display:inline-block;
+    margin:0 0.5em 0 0;
     padding:0.5em 1em;
+    width:10%;
 
     border-radius:0.25em;
     border:1px solid lightGray;
 }
 
 input.message-text {
-    margin:1em 0 0 0;
+    display:inline-block;
     padding:0.5em 1em;
-    width:100%;
+    width:75%;
 
     border-radius:0.25em;
     border:1px solid lightGray;
+}
+
+.input-container {
+    border-top:1px solid lightGray;
+    padding:1em;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
 }
 
 .name {
