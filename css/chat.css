@@ -26,6 +26,10 @@ body {
     margin:0 0 0.25em 0;
 }
 
+.messages .message:last-child {
+    margin:0;
+}
+
 input.name {
     margin:0 0 1em 0;
     padding:0.5em 1em;
