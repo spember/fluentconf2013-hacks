@@ -12,7 +12,6 @@
 			<section class="messages"></section>
 
 			<input placeholder="Your message..." class="message-text"> </input>
-			<a class="send">Send</a>
 		</div>
 
 		<script src="/lib/zepto.min.js"></script>
@@ -22,25 +21,20 @@
 			var $messages = $(".messages"), 
 				$input = $("input.message-text"),
 				$name = $("input.name"),
-				$send = $(".send"),
 				socket = io.connect('http://10.10.26.181');
 		  	
 		  	socket.on('message', function (data) {
 		    	$messages.append('<div class="message"><span class="name">' +data.name +':</span>' + data.text + '</div>');
 		  	});	
 
-		  	$send.on('click', function () {
-		  		var text = $input.val(),
-		  			name = $name.val();
-		  		if(name === undefined || name === "") {
-		  			name = "Anonymous"
-		  		}
-		  		console.log("clicked! " + $input.val());
-		  		socket.emit("message", {text: text, name: name});
-		  	});
-
 		  	$input.on('keypress', function(event){
+
                 if(event.which == 13) {
+                	var text = $input.val(),
+		  				name = $name.val();
+		  			if(name === undefined || name === "") {
+		  				name = "Anonymous"
+		  			}
                     socket.emit('message', {
                     	name: $name.val(),
                     	text: $input.val()
