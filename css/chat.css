@@ -16,7 +16,7 @@ body {
 .messages {
     overflow:scroll;
     position:fixed;
-    top:3em;
+    top:5em;
     bottom:5em;
     right:1em;
     left:1em;
