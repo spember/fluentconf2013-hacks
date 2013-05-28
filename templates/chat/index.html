@@ -1,0 +1,40 @@
+
+<html>
+	<head>
+		<title>Chatty Chatty Chat Chat</title>
+		<link rel="stylesheet" type="text/css" href="/css/chat.css"/>
+	</head>
+	<body>
+		<h2>This is Chatty Chatty Chat Chat</h2>
+		<section class="messages">
+			
+		</section>
+
+		<input> </input>
+		<a class="send">Send</a>
+
+		<script src="/lib/zepto.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+		$(function () {
+			var $messages = $(".messages"), 
+				$input = $("input").first(),
+				$send = $(".send"),
+				socket = io.connect('http://10.10.26.181');
+		  	
+		  	socket.on('message', function (data) {
+		    	$messages.append('<div class="message">' + data.text + '</div>');
+		  	});	
+
+		  	$send.on('click', function () {
+		  		console.log("clicked! " + $input.val());
+		  		socket.emit("message", {text: $input.val()});
+		  	})
+
+		  	
+		});
+		  
+
+		</script>
+	</body>
+</html>
