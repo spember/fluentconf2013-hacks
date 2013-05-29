@@ -8,7 +8,7 @@ console.log("Grab your ip from here:");
 console.log(os.networkInterfaces());
 
 function handler (req, res) {
-    if(req.url.indexOf("/lib/") > -1 || req.url.indexOf("/css/") > -1) {
+    if(req.url.indexOf("/app/") > -1) {
         fs.readFile(__dirname +'/..' + req.url, function (err, data) {
             res.writeHead(200);
             res.end(data);
