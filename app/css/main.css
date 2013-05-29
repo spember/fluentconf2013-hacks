@@ -76,3 +76,24 @@ h3 {
     margin:0 0 1em 0;
     font-size:0.9em;
 }
+
+.alert {
+    -moz-animation:bounceOut .4s linear;
+    -webkit-animation:bounceOut .4s linear;
+}
+
+@-moz-keyframes bounceOut {
+        0%{ box-shadow: 0 0 0 4px red; opacity:1;}
+        25%{ box-shadow: 0 0 0 1px red; opacity:1;}
+        50%{ box-shadow: 0 0 0 7px red; opacity:1; }
+        75%{ box-shadow: 0 0 0 4px red; opacity:1;}
+        100%{ box-shadow: 0 0 0 5px red; opacity:1;}
+}
+
+@-webkit-keyframes bounceOut {
+        0%{ box-shadow: 0 0 0 4px red; opacity:1;}
+        25%{ box-shadow: 0 0 0 1px red; opacity:1;}
+        50%{ box-shadow: 0 0 0 7px red; opacity:1; }
+        75%{ box-shadow: 0 0 0 4px red; opacity:1;}
+        100%{ box-shadow: 0 0 0 5px red; opacity:1;}
+}

@@ -27,7 +27,7 @@ function handler (req, res) {
 }
 
 var messageHistory = {
-    messages: [{name: "Sample", text: "This is fake"}, {name: "Sample", text: "This is fake"}],
+    messages: [],
     maxHistory: 50,
     add: function(data) {
         this.messages.push(data);

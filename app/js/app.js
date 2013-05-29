@@ -6,7 +6,7 @@ $(function () {
         $server = $("input.server"),
         socket,
         buildMessage = function(data) {
-            return '<div class="message"><span class="name">' +data.name +':</span>' + data.text + '</div>';
+            return '<div class="message ' + ($name.val() !== "" && data.text.indexOf($name.val()) > -1 ? 'alert' : '') +'"><span class="name">' +data.name +':</span>' + data.text + '</div>';
         },
         scrollToBottom = function() {
             $messages[0].scrollTop = $messages[0].scrollHeight - $messages[0].offsetHeight;
