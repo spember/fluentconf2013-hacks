@@ -4,10 +4,11 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		exec: {
 			server: {
-				cmd: 'node server/server.js'
+				cmd: 'node server/chat.js'
 			}
 		},
 		ngtemplates: {
+			//todo: update to work with the chat templates
             bookshelf: {
                 options: {
                     prepend:  '/static/',  // (Optional) Prepend path to $templateCache ID
@@ -28,6 +29,6 @@ module.exports = function(grunt) {
 		grunt.task.run("exec:server");
 	});
 
-	grunt.registerTask('default', ['ngtemplates', 'server']);
+	grunt.registerTask('default', ['server']);
 
 };
