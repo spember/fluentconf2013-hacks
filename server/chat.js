@@ -32,7 +32,7 @@ var messageHistory = {
     add: function(data) {
         this.messages.push(data);
         if(this.messages.length > this.maxHistory) {
-            this.messages.pop(0);    
+            this.messages.shift();
         }
     },
     size: function () {

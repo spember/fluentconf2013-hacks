@@ -27,23 +27,23 @@ body {
 }
 
 input.server {
+    display:inline-block;
     border-radius:0.25em;
     border:1px solid lightGray;
     padding:0.5em 1em;
-    margin:0 0 1em 0;
+    margin:0;
 }
 
 .messages {
     overflow:scroll;
     position:fixed;
-    top:5em;
+    top:5.5em;
     bottom:5em;
     right:1em;
     left:1em;
     border-radius:0.25em;
     border:1px solid lightGray;
     padding:0.5em;
-    box-shadow: inset 0px 0px 5px #555555;
 }
 
 .messages .message {
