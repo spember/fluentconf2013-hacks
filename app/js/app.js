@@ -4,12 +4,12 @@ $(function () {
         $input = $("input.message-text"),
         $name = $("input.name"),
         $server = $("input.server"),
-        urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/,
+        urlPattern = /(http|ftp|https):\/\/[\w\-]+(\.[\w\-]+)+([\w.,@?\^=%&amp;:\/~+#\-]*[\w@?\^=%&amp;\/~+#\-])?/,
         socket,
         buildMessage = function(data) {
             //pre process for links
             match = urlPattern.exec(data.text);
-            if (match != null) {
+            if (match !== null) {
                 data.text = data.text.replace(match[0], "<a href='" + match[0] + "' target='_blank'>" + match[0] +"</a>");
             }
             return '<div class="message ' + ($name.val() !== "" && data.text.indexOf($name.val()) > -1 ? 'alert' : '') +'"><span class="name">' +data.name +':</span>' + data.text + '</div>';

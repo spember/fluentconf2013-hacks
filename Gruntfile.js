@@ -34,6 +34,6 @@ module.exports = function(grunt) {
 		grunt.task.run("exec:server");
 	});
 
-	grunt.registerTask('default', ['server']);
+	grunt.registerTask('default', ['jshint', 'server']);
 
 };
