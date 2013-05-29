@@ -1,3 +1,4 @@
+/*global angular, rll */
 $(function () {
             
     var $messages = $(".messages"), 
