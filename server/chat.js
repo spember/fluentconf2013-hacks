@@ -14,7 +14,7 @@ function handler (req, res) {
             res.end(data);
         });
     } else {
-        fs.readFile(__dirname + '/../templates/chat/index.html',
+        fs.readFile(__dirname + '/../app/index.html',
             function (err, data) {
                 if (err) {
                   res.writeHead(500);
