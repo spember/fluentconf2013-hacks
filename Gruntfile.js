@@ -2,6 +2,11 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		jshint: {
+            all: ['Gruntfile.js', '<%= pkg.jsPath %>**/*.js'],
+            options: {
+            }
+        },
 		exec: {
 			server: {
 				cmd: 'node server/chat.js'
