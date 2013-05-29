@@ -4,8 +4,14 @@ $(function () {
         $input = $("input.message-text"),
         $name = $("input.name"),
         $server = $("input.server"),
+        urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/,
         socket,
         buildMessage = function(data) {
+            //pre process for links
+            match = urlPattern.exec(data.text);
+            if (match != null) {
+                data.text = data.text.replace(match[0], "<a href='" + match[0] + "' target='_blank'>" + match[0] +"</a>");
+            }
             return '<div class="message ' + ($name.val() !== "" && data.text.indexOf($name.val()) > -1 ? 'alert' : '') +'"><span class="name">' +data.name +':</span>' + data.text + '</div>';
         },
         scrollToBottom = function() {
@@ -13,7 +19,7 @@ $(function () {
         };
 
     //look in localStorage for a previous name and server ip
-    if (localStorage.name !== undefined) { 
+    if (localStorage.name !== undefined) {
         $name.val(localStorage.name);
     }
     if (localStorage.server !== undefined) {
