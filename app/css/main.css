@@ -156,6 +156,12 @@ h3 {
     font-size:0.9em;
 }
 
+.count-container {
+    position: relative;
+    bottom: 1.5em;
+    left: 15em;
+}
+
 .alert {
     -moz-animation:bounceOut .4s linear;
     -webkit-animation:bounceOut .4s linear;

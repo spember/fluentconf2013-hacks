@@ -54,7 +54,8 @@ $(function () {
 
     $server.on('keypress', function (event) {
         var lastMessageName,
-            lastHistoryName;
+            lastHistoryName,
+            $count = $(".count");
         if (event.which === 13) {
             socket = io.connect('http://' + $server.val());
             localStorage.server = $server.val();
@@ -67,6 +68,9 @@ $(function () {
                     lastMessageName = data.name;
                     scrollToBottom();
                 }); 
+                socket.on('count', function (data){
+                    $count.text(data.count);
+                });
                 socket.on('history', function (dataList) {
                     var messages = "";
                     for(var i = 0; i < dataList.length; i++) {
