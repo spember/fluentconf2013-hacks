@@ -1,6 +1,7 @@
 {
   "name": "fluent2013",
   "version": "0.0.1",
+  "jsPath": "app/js/",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.1.1",

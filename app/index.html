@@ -1,5 +1,5 @@
 
-<html>
+<html >
 	<head>
 		<title>Chatty Chatty Chat Chat</title>
 		<link rel="stylesheet" type="text/css" href="/app/css/main.css"/>
@@ -10,17 +10,19 @@
 			
 			<!-- makes the server connection -->
 			<input server placeholder="Enter Server ip address" class="server"/>
+			<div class="count-container">Number of users: <span class="count">0</span></div>
 			
 			<section class="messages" ng-repeat="message in messages">
 				<div class="message"><span class="name">{{message.name}}</span>{{message.text}}</div>
 			</section>
 
-			<div ng-message-input class="input-container">
+			<div chat class="input-container">
 				<input placeholder="Your name..." class="name"/>
 				<input placeholder="Your message..." class="message-text" />
 			</div>
 		</div>
 
+		<script type="text/javascript" src="/app/lib/moment.min.js"></script>
 		<script type="text/javascript" src="/app/lib/zepto.min.js"></script>
 		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 		<script type="text/javascript" src="/app/lib/namespace.js"></script>
@@ -29,6 +31,7 @@
 		<script type="text/javascript" src="/app/js/controllers.js"></script>		
 		<script type="text/javascript" src="/app/js/directives.js"></script>		
 		<script type="text/javascript" src="/app/js/services.js"></script>		
+
 
 		<script type="text/javascript" src="/app/js/app.js"></script>		
 

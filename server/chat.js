@@ -23,17 +23,17 @@ function handler (req, res) {
                 }
                 res.writeHead(200);
                 res.end(data);
-        }); 
+        });  
     }
 }
 
 var messageHistory = {
-    messages: [{name: "Sample", text: "This is fake"}, {name: "Sample", text: "This is fake"}],
+    messages: [],
     maxHistory: 50,
     add: function(data) {
         this.messages.push(data);
         if(this.messages.length > this.maxHistory) {
-            this.messages.pop(0);    
+            this.messages.shift();
         }
     },
     size: function () {
@@ -42,21 +42,56 @@ var messageHistory = {
 };
 
 // keep a running list of the current connections
-var sockets = [];
+var socketManager = {
+    sockets: [],
+    add: function(socket) {
+        this.sockets.push(socket);
+        this.emit('count', {'count': this.sockets.length});
+    },
+    remove: function(socket) {
+        for (var i = 0; i < this.sockets.length; i++) {
+            if (this.sockets[i].id === socket.id) {
+                this.sockets.splice(i, 1);
+                console.log(this.sockets);  
+            }
+        }            
+        this.emit('count', {'count': this.sockets.length});
+    },
+    emit: function(key, data) {
+        console.log("emitting: " +key);
+        for (var i = 0; i < this.sockets.length; i++) {
+            this.sockets[i].emit(key, data);
+        }
+
+    },
+    emitCount: function() {
+        this.emit('count', {'count': this.sockets.length});
+    },
+    size: function() {
+        return this.sockets.length;
+    }
+};
 
 io.sockets.on('connection', function (socket) {
-    console.log("Connect received! Number of connections = " + sockets.length);
-    sockets.push(socket);
+    console.log("Connect received! Number of connections = " + this.sockets.length);
+    //sockets.push(socket);
+    socketManager.add(socket);
+    console.log(socket.id);
     // welcome message
     socket.emit('message', { name: "Server",  text: 'Welcome!'});
-    if(messageHistory.size() > 0) {
+    if (messageHistory.size() > 0) {
         socket.emit('history', messageHistory.messages);
+    }
+
+    if (socketManager.size() > -10) {
+        socket.emit('count', {'count': this.sockets.length});
     }
 
     socket.on('message', function (data) {
         messageHistory.add(data);
-        for (var i = 0; i< sockets.length; i++) {
-            sockets[i].emit("message", data);   
-        }
+        socketManager.emit("message", data);
+    });
+    socket.on('disconnect', function (data) {
+        socketManager.remove(socket);
     });
 });
