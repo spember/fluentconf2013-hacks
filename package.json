@@ -12,7 +12,7 @@
     "grunt-karma": "~0.3.0",
     "express": "",
     "jade": "",
-    "socket.io": "~0.9",
+    "socket.io": "",
     "angular":"~0.0.4"
   }
 }
