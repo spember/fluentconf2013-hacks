@@ -52,6 +52,7 @@ input.server {
 
 .messages .message .timestamp {
     float:right;
+    margin-left:2em;
 }
 
 .messages .message .name {

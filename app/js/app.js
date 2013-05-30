@@ -23,7 +23,7 @@ $(function () {
                 userColorMap[data.name] = availableColors.pop();
             }
 
-            return '<div class="message group ' + ($name.val() !== "" && data.text.indexOf($name.val()) > -1 ? 'alert' : '') +'">' + (data.name ? '<div class="name ' + userColorMap[data.name] + '">' +data.name + '</div>' : '') + '<div class="text">' + data.text + '<span class="timestamp">' + formatTime(data.timestamp) + '</span></div></div>';
+            return '<div class="message group ' + ($name.val() !== "" && data.text.indexOf($name.val()) > -1 ? 'alert' : '') +'">' + (data.name ? '<div class="name ' + userColorMap[data.name] + '">' +data.name + '</div>' : '') + '<div class="text"><span class="timestamp">' + formatTime(data.timestamp) + '</span>' + data.text + '</div></div>';
         },
         scrollToBottom = function() {
             $messages[0].scrollTop = $messages[0].scrollHeight - $messages[0].offsetHeight;
