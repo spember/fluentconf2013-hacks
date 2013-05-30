@@ -61,12 +61,13 @@ $(function () {
     $server.on('keypress', function (event) {
         var lastMessageName,
             lastHistoryName,
+            $count = $(".count"),
             serverAddress = $server.val();
         if (event.which === 13) {
             if(serverAddress !== connectedServer) {
                 connectingToSocket = true;
-                socket = io.connect('http://' + serverAddress);
-                localStorage.server = serverAddress;
+                socket = io.connect('http://' + $server.val());
+                localStorage.server = $server.val();
 
                 socket.on('disconnect', function(){
                     connectingToSocket = false;
@@ -87,6 +88,10 @@ $(function () {
                         scrollToBottom();
                     });
 
+                    socket.on('count', function (data){
+                        $count.text(data.count);
+                    });
+
                     socket.on('history', function (dataList) {
                         var messages = "";
                         for(var i = 0; i < dataList.length; i++) {
@@ -99,7 +104,8 @@ $(function () {
                         }
                         $messages.append(messages);
                         scrollToBottom();
-                    }); 
+                    });
+
                 });
             }
         }

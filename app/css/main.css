@@ -163,6 +163,11 @@ h3 {
     font-size:0.9em;
 }
 
+.count-container {
+    float:right;
+    padding:0.25em 0;
+}
+
 .alert {
     -moz-animation:bounceOut .4s linear;
     -webkit-animation:bounceOut .4s linear;
