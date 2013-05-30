@@ -57,6 +57,7 @@ input.server {
 }
 
 .messages .message .name {
+    line-height: 1.5em;
     padding:0.25em 0.5em;
     background-color:lightGray;
     float:left;
@@ -118,6 +119,7 @@ input.server {
     border-top-right-radius:0.25em;
     border-bottom-right-radius:0.25em;
     background-color:#EBEBEB;
+    line-height: 1.5em;
 }
 
 .messages .message:last-child {
