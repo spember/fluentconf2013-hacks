@@ -1,22 +1,84 @@
 /*global io */
-//<<<<<<< HEAD
 'use strict'
-var myModule = angular.module('chattyApp', ['chattyApp.directives']).
+var chattyApp = angular.module('chattyApp', ['chattyApp.directives']).
   config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/', {
           controller:MainCtrl
         })
         $routeProvider.otherwise({redirectTo: '/'});
-  }])
-  .service("messageUpdater", chat.services.messageService);
+  }]);
 //TODO: Move to services.js
 //Sets up the socket io connections
 
 
-//myModule.factory('messageUpdater', function() {
+chattyApp.factory("socketService", function () {
+    
+    // var self = this;
+    // var data = {messages:[]}; 
+    var messages = [];
+    var socket;
+    
+    return {
+        connect : function(serverIp) {
+            
+            socket = io.connect('http://' + serverIp);
+            socket.on('message', function (payload) {
+                
+                //pre process for links
+                var urlPattern = /(http|ftp|https):\/\/[\w\-]+(\.[\w\-]+)+([\w.,@?\^=%&amp;:\/~+#\-]*[\w@?\^=%&amp;\/~+#\-])?/,
+                    match = urlPattern.exec(payload.text);
+
+                if (match !== null) {
+                    payload.text = payload.text.replace(match[0], "<a href='" + match[0] + "' target='_blank'>" + match[0] +"</a>");
+                }
+                console.log("Adding message");
+                messages.push(payload);
+                console.log("messages length: " +messages.length);
+                
+            });
+            socket.on('history', function (dataList) {
+                var i;
+                console.log('Adding message history:', dataList);  
+                for (i = 0; i < dataList.length; i++) {
+                    messages.push(dataList[i]);
+                }
+            }); 
+
+
+            socket.on("connect", function () {
+                console.log("connected!");                
+            });
+        },
+        emit : function (key, data) {
+            socket.emit(key, data);
+        },
+        messages : messages
+    }
+});
+
+chattyApp.factory("Timer", function ($timeout) {
+    var data = { lastUpdated: new Date(), calls: 0 };
+
+    // var updateTimer = function () {
+    //     data.lastUpdated = new Date();
+    //     data.calls += 1;
+    //     console.log("updateTimer: " + data.lastUpdated);
+
+    //     $timeout(updateTimer, 5000);
+    // };
+    // updateTimer();
+
+    return {
+        data: data
+    };
+});
+
+
+
+// myModule.factory('messageUpdater', function() {
 
    
-//});
+// });
 
 
 
