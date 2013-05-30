@@ -10,7 +10,7 @@ $(function () {
         availableColors = ['DarkGray', 'Brown', 'DarkGreen', 'DarkSlateBlue', 'DarkSlateGray', 'IndianRed', 'LightSlateGray'],
         userColorMap = {},
         formatTime = function(timestamp) {
-            return timestamp ? moment(new Date(timestamp * 1000)).format('MM-DD-YYYY @ h:mm a') : '';
+            return timestamp ? moment(new Date(timestamp * 1000)).format('MM-DD-YYYY @ h:mm:ss a') : '';
         },
         buildMessage = function(data) {
             //pre process for links
