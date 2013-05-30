@@ -35,7 +35,7 @@ input.server {
 }
 
 .messages {
-    overflow:scroll;
+    overflow-y:scroll;
     position:fixed;
     top:5.5em;
     bottom:5em;
