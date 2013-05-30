@@ -61,6 +61,8 @@ $(function () {
     $server.on('keypress', function (event) {
         var lastMessageName,
             lastHistoryName,
+            interval,
+            intervalCount,
             $count = $(".count"),
             serverAddress = $server.val();
         if (event.which === 13) {
@@ -79,11 +81,25 @@ $(function () {
                     connectedServer = $server.val();
 
                     socket.on('message', function (data) {
+                        var previousTitle = document.title;
+                        clearInterval(interval);
+                        intervalCount = 0;
                         $messages.append(buildMessage({
                             name: (lastMessageName == data.name) ? null : data.name,
                             text: data.text,
                             timestamp: data.timestamp
                         }));
+                        interval = setInterval( function () {
+                            document.title = "!!!!#*##*#*#*!!!!";
+                            setTimeout( function () {
+                                document.title = previousTitle;
+                            }, 500);
+                            intervalCount++;
+                            if(intervalCount > 5) {
+                                //suicide
+                                clearInterval(interval);
+                            }
+                        }, 1000);
                         lastMessageName = data.name;
                         scrollToBottom();
                     });
