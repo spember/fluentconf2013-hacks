@@ -14,5 +14,9 @@
     "jade": "",
     "socket.io": "",
     "angular":"~0.0.4"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
   }
 }
