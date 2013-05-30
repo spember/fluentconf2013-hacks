@@ -4,6 +4,11 @@ var app = require('http').createServer(handler),
     os = require('os'),
     port = process.env.PORT || 4444;
 
+io.configure(function () { 
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10); 
+});
+
 app.listen(port);
 
 console.log("Grab your ip from here:");
