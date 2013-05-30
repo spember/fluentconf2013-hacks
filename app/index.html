@@ -4,22 +4,33 @@
 		<title>Chatty Chatty Chat Chat</title>
 		<link rel="stylesheet" type="text/css" href="/app/css/main.css"/>
 	</head>
-	<body>
-		<div class="bodyWrapper">
+	<body ng-app="chattyApp">
+		<div ng-controller="MainCtrl" class="bodyWrapper">
 			<h3>This is Chatty Chatty Chat Chat</h3>
-			<input placeholder="Enter Server ip address" class="server"/>
-			<section class="messages"></section>
+			
+			<!-- makes the server connection -->
+			<input server placeholder="Enter Server ip address" class="server"/>
+			
+			<section class="messages" ng-repeat="message in messages">
+				<div class="message"><span class="name">{{message.name}}</span>{{message.text}}</div>
+			</section>
 
-			<div class="input-container">
+			<div ng-message-input class="input-container">
 				<input placeholder="Your name..." class="name"/>
 				<input placeholder="Your message..." class="message-text" />
 			</div>
 		</div>
 
-		<script type="text/javascript" src="/app/js/lib/zepto.min.js"></script>
+		<script type="text/javascript" src="/app/lib/zepto.min.js"></script>
 		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-		<script type="text/javascript" src="/app/js/lib/namespace.js"></script>
-		<script type="text/javascript" src="/app/app.js"></script>		
+		<script type="text/javascript" src="/app/lib/namespace.js"></script>
+		<script type="text/javascript" src="/app/lib/angular.min.js"></script>
+
+		<script type="text/javascript" src="/app/js/controllers.js"></script>		
+		<script type="text/javascript" src="/app/js/directives.js"></script>		
+		<script type="text/javascript" src="/app/js/services.js"></script>		
+
+		<script type="text/javascript" src="/app/js/app.js"></script>		
 
 	</body>
 </html>
