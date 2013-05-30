@@ -9,6 +9,9 @@ $(function () {
         socket,
         availableColors = ['DarkGray', 'Brown', 'DarkGreen', 'DarkSlateBlue', 'DarkSlateGray', 'IndianRed', 'LightSlateGray'],
         userColorMap = {},
+        formatTime = function(timestamp) {
+            return timestamp ? moment(new Date(timestamp * 1000)).format('MM-DD-YYYY @ h:mm:ss a') : '';
+        },
         buildMessage = function(data) {
             //pre process for links
             match = urlPattern.exec(data.text);
@@ -20,7 +23,7 @@ $(function () {
                 userColorMap[data.name] = availableColors.pop();
             }
 
-            return '<div class="message group ' + ($name.val() !== "" && data.text.indexOf($name.val()) > -1 ? 'alert' : '') +'">' + (data.name ? '<div class="name ' + userColorMap[data.name] + '">' +data.name + '</div>' : '') + '<div class="text">' + data.text + '</div></div>';
+            return '<div class="message group ' + ($name.val() !== "" && data.text.indexOf($name.val()) > -1 ? 'alert' : '') +'">' + (data.name ? '<div class="name ' + userColorMap[data.name] + '">' +data.name + '</div>' : '') + '<div class="text"><span class="timestamp">' + formatTime(data.timestamp) + '</span>' + data.text + '</div></div>';
         },
         scrollToBottom = function() {
             $messages[0].scrollTop = $messages[0].scrollHeight - $messages[0].offsetHeight;
@@ -46,7 +49,8 @@ $(function () {
             localStorage.name = name;
             socket.emit('message', {
                 name: name,
-                text: text
+                text: text,
+                timestamp: Math.round((new Date()).getTime() / 1000)
             });
             $input.val('');
         }
@@ -63,7 +67,8 @@ $(function () {
                 socket.on('message', function (data) {
                     $messages.append(buildMessage({
                         name: (lastMessageName == data.name) ? null : data.name,
-                        text: data.text
+                        text: data.text,
+                        timestamp: data.timestamp
                     }));
                     lastMessageName = data.name;
                     scrollToBottom();
@@ -76,7 +81,8 @@ $(function () {
                     for(var i = 0; i < dataList.length; i++) {
                         messages += buildMessage({
                             name: (lastHistoryName == dataList[i].name) ? null : dataList[i].name,
-                            text: dataList[i].text
+                            text: dataList[i].text,
+                            timestamp: dataList[i].timestamp
                         });
                         lastHistoryName = dataList[i].name;
                     }
