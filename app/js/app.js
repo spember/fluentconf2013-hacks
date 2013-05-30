@@ -27,7 +27,9 @@ $(function () {
         },
         scrollToBottom = function() {
             $messages[0].scrollTop = $messages[0].scrollHeight - $messages[0].offsetHeight;
-        };
+        },
+        connectedServer,
+        connectingToSocket;
 
     //look in localStorage for a previous name and server ip
     if (localStorage.name !== undefined) {
@@ -59,39 +61,53 @@ $(function () {
     $server.on('keypress', function (event) {
         var lastMessageName,
             lastHistoryName,
-            $count = $(".count");
+            $count = $(".count"),
+            serverAddress = $server.val();
         if (event.which === 13) {
-            socket = io.connect('http://' + $server.val());
-            localStorage.server = $server.val();
-            socket.on("connect", function () {
-                socket.on('message', function (data) {
-                    $messages.append(buildMessage({
-                        name: (lastMessageName == data.name) ? null : data.name,
-                        text: data.text,
-                        timestamp: data.timestamp
-                    }));
-                    lastMessageName = data.name;
-                    scrollToBottom();
-                }); 
-                socket.on('count', function (data){
-                    $count.text(data.count);
+            if(serverAddress !== connectedServer) {
+                connectingToSocket = true;
+                socket = io.connect('http://' + $server.val());
+                localStorage.server = $server.val();
+
+                socket.on('disconnect', function(){
+                    connectingToSocket = false;
+                    connectedServer = null;
                 });
-                socket.on('history', function (dataList) {
-                    var messages = "";
-                    for(var i = 0; i < dataList.length; i++) {
-                        messages += buildMessage({
-                            name: (lastHistoryName == dataList[i].name) ? null : dataList[i].name,
-                            text: dataList[i].text,
-                            timestamp: dataList[i].timestamp
-                        });
-                        lastHistoryName = dataList[i].name;
-                    }
-                    $messages.append(messages);
-                    scrollToBottom();
-                }); 
-            });
-            
-            
+
+                socket.on("connect", function () {
+                    connectingToSocket = false;
+                    connectedServer = $server.val();
+
+                    socket.on('message', function (data) {
+                        $messages.append(buildMessage({
+                            name: (lastMessageName == data.name) ? null : data.name,
+                            text: data.text,
+                            timestamp: data.timestamp
+                        }));
+                        lastMessageName = data.name;
+                        scrollToBottom();
+                    });
+
+                    socket.on('count', function (data){
+                        $count.text(data.count);
+                    });
+
+                    socket.on('history', function (dataList) {
+                        var messages = "";
+                        for(var i = 0; i < dataList.length; i++) {
+                            messages += buildMessage({
+                                name: (lastHistoryName == dataList[i].name) ? null : dataList[i].name,
+                                text: dataList[i].text,
+                                timestamp: dataList[i].timestamp
+                            });
+                            lastHistoryName = dataList[i].name;
+                        }
+                        $messages.append(messages);
+                        scrollToBottom();
+                    });
+
+                });
+            }
         }
     });
 });

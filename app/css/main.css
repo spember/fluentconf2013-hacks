@@ -35,7 +35,7 @@ input.server {
 }
 
 .messages {
-    overflow:scroll;
+    overflow-y:scroll;
     position:fixed;
     top:5.5em;
     bottom:5em;
@@ -164,9 +164,8 @@ h3 {
 }
 
 .count-container {
-    position: relative;
-    bottom: 1.5em;
-    left: 15em;
+    float:right;
+    padding:0.25em 0;
 }
 
 .alert {
