@@ -1,9 +1,11 @@
 var app = require('http').createServer(handler),
     io = require('socket.io').listen(app),
     fs = require('fs'),
-    os = require('os');
+    os = require('os'),
+    port = process.env.PORT || 4444;
 
-app.listen(4444);
+app.listen(port);
+
 console.log("Grab your ip from here:");
 console.log(os.networkInterfaces());
 
