@@ -17,7 +17,7 @@ $scope.$watch('socketService', function (data) {
 
 $scope.Timer = Timer;
 $scope.$watch('Timer.data', function (data){
-	console.log("In $watch - data:", data);
+	// console.log("In $watch - data:", data);
 	$scope.lastUpdated = data.lastUpdated;
 	$scope.calls = data.calls;
 }, true); // <-- don't forgt the true

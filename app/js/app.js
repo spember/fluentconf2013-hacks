@@ -59,19 +59,35 @@ chattyApp.factory("socketService", function () {
 chattyApp.factory("Timer", function ($timeout) {
     var data = { lastUpdated: new Date(), calls: 0 };
 
-    // var updateTimer = function () {
-    //     data.lastUpdated = new Date();
-    //     data.calls += 1;
-    //     console.log("updateTimer: " + data.lastUpdated);
+    var updateTimer = function () {
+        data.lastUpdated = new Date();
+        data.calls += 1;
+        // console.log("updateTimer: " + data.lastUpdated);
 
-    //     $timeout(updateTimer, 5000);
-    // };
-    // updateTimer();
+        $timeout(updateTimer, 5000);
+    };
+    updateTimer();
 
     return {
         data: data
     };
 });
+
+chattyApp.filter("buildMessage", function(data) {
+    //pre process for links
+    match = urlPattern.exec(data.text);
+    if (match !== null) {
+        data.text = data.text.replace(match[0], "<a href='" + match[0] + "' target='_blank'>" + match[0] +"</a>");
+    }
+
+    if(data.name && !userColorMap[data.name]) {
+        userColorMap[data.name] = availableColors.pop();
+    }
+
+    return '<div class="message group ' + ($name.val() !== "" && data.text.toLowerCase().indexOf($name.val().toLowerCase()) > -1 ? 'alert' : '') +'">' + (data.name ? '<div class="name ' + userColorMap[data.name] + '">' +data.name + '</div>' : '') + '<div class="text"><span class="timestamp">' + formatTime(data.timestamp) + '</span>' + data.text + '</div></div>';
+});
+
+
 
 
 

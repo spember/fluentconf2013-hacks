@@ -12,6 +12,12 @@ module.exports = function(grunt) {
 				cmd: 'node server/chat.js'
 			}
 		},
+		karma: {
+  			unit: {
+    			configFile: 'karma.conf.js',
+    			autowatch: true
+			}
+		},
 		ngtemplates: {
 			//todo: update to work with the chat templates
             bookshelf: {
@@ -28,6 +34,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-exec');
 	grunt.loadNpmTasks('grunt-angular-templates');
+	grunt.loadNpmTasks('grunt-karma');
 
 	grunt.registerTask("server", "Start server.", function () {
 		grunt.log.writeln("Starting server...");
