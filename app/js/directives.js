@@ -41,27 +41,31 @@ angular.module('chattyApp.directives', []).
     })
     .directive('message', function factory() {
 
-        //TODO: Add colors
+        
         var availableColors = ['DarkGray', 'Brown', 'DarkGreen', 'DarkSlateBlue', 'DarkSlateGray', 'IndianRed', 'LightSlateGray'],
         userColorMap = {},
+        directiveDefinitionObject,
         
         //private functions
         formatTime = function(timestamp) {
             return timestamp ? moment(new Date(timestamp * 1000)).format('MM-DD-YYYY @ h:mm:ss a') : '';
         };
+        directiveDefinitionObject = {
 
-        
+            restrict: 'E',
 
-        return function($scope, element, attrs) {
-            var message = $scope.message;     
+            link : function($scope, element, attrs) {
+                var message = $scope.message;     
 
-            if(message.name && !userColorMap[message.name]) {
-                userColorMap[message.name] = availableColors.pop();
+                if(message.name && !userColorMap[message.name]) {
+                    userColorMap[message.name] = availableColors.pop();
+                }
+
+                element.html('<div class="message group ' + (message.name !== "" && message.text.indexOf(message.name) > -1 ? 'alert' : '') +'">' + (message.name ? '<div class="name ' + userColorMap[message.name] + '">' +message.name + '</div>' : '') + '<div class="text"><span class="timestamp">' + formatTime(message.timestamp) + '</span>' + message.text + '</div></div>');
+
             }
-
-            element.html('<div class="message group ' + (message.name !== "" && message.text.indexOf(message.name) > -1 ? 'alert' : '') +'">' + (message.name ? '<div class="name ' + userColorMap[message.name] + '">' +message.name + '</div>' : '') + '<div class="text"><span class="timestamp">' + formatTime(message.timestamp) + '</span>' + message.text + '</div></div>');
-
         }
+        return directiveDefinitionObject;
     });
 
 
