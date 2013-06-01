@@ -53,8 +53,13 @@ angular.module('chattyApp.directives', []).
         
 
         return function($scope, element, attrs) {
-            var message = $scope.message;            
-            element.html('<div class="message group ' + (message.name !== "" && message.text.indexOf(message.name) > -1 ? 'alert' : '') +'">' + (message.name ? '<div class="name">' +message.name + '</div>' : '') + '<div class="text"><span class="timestamp">' + formatTime(message.timestamp) + '</span>' + message.text + '</div></div>');
+            var message = $scope.message;     
+
+            if(message.name && !userColorMap[message.name]) {
+                userColorMap[message.name] = availableColors.pop();
+            }
+
+            element.html('<div class="message group ' + (message.name !== "" && message.text.indexOf(message.name) > -1 ? 'alert' : '') +'">' + (message.name ? '<div class="name ' + userColorMap[message.name] + '">' +message.name + '</div>' : '') + '<div class="text"><span class="timestamp">' + formatTime(message.timestamp) + '</span>' + message.text + '</div></div>');
 
         }
     });
