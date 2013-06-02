@@ -1,15 +1,15 @@
 // namespace("chat.services");
 // chat.services.socketService = function () {
-    
+
 //     var self = this; 
 //     self.data = {messages:[]};
-    
+
 //     return {
 //         connect : function(serverIp) {
-            
+
 //             this.socket = io.connect('http://' + serverIp);
 //             this.socket.on('message', function (data) {
-                
+
 //                 //pre process for links
 //                 var urlPattern = /(http|ftp|https):\/\/[\w\-]+(\.[\w\-]+)+([\w.,@?\^=%&amp;:\/~+#\-]*[\w@?\^=%&amp;\/~+#\-])?/,
 //                     match = urlPattern.exec(data.text);
@@ -20,8 +20,8 @@
 //                 console.log("Adding message");
 //                 self.data.messages.push(data);
 //                 console.log("messages length: " +self.data.messages.length);
-                
-                
+
+
 //                 //scrollToBottom();
 //             });
 //             this.socket.on('history', function (dataList) {
