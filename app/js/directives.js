@@ -40,7 +40,6 @@ angular.module('chattyApp.directives', []).
         };
     })
     .directive('message', function factory() {
-
         
         var availableColors = ['DarkGray', 'Brown', 'DarkGreen', 'DarkSlateBlue', 'DarkSlateGray', 'IndianRed', 'LightSlateGray'],
         userColorMap = {},
@@ -66,16 +65,15 @@ angular.module('chattyApp.directives', []).
             }
         }
         return directiveDefinitionObject;
-    });
+    })
+    .directive('scrollAnchor', function scrollAnchorFactory() {
+        var scrollToBottom = function() {
+            $messages[0].scrollTop = $messages[0].scrollHeight - $messages[0].offsetHeight;
+        }
+        return function($scope, element, attrs) {
 
+            console.log('in scrollAnchor');
 
-
-/* Directives */
-
-
-// angular.module('myApp.directives', []).
-//   directive('appVersion', ['version', function(version) {
-//     return function(scope, elm, attrs) {
-//       elm.text(version);
-//     };
-//   }]);
+        }
+    })
+;
