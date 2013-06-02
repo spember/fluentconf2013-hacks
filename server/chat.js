@@ -9,7 +9,13 @@ console.log(os.networkInterfaces());
 
 function handler (req, res) {
     if(req.url.indexOf("/app/") > -1) {
-        fs.readFile(__dirname +'/..' + req.url, function (err, data) {
+        fs.readFile(__dirname +'/..' + req.url, function (err, data) {            
+            if (req.url.indexOf("css") > -1) {                
+                res.setHeader('Content-Type', 'text/css');
+            } else {                
+                res.setHeader('Content-Type', 'text/javascript');
+            }
+
             res.writeHead(200);
             res.end(data);
         });
