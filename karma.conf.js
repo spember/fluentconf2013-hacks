@@ -13,8 +13,9 @@ files = [
 
   //angular libs
   'app/lib/**/*.js',
-
-  'test/spec/**/*Spec.js'
+  'test/lib/**/*.js',
+  
+  'test/unit/**/*Spec.js'
 ];
 
 

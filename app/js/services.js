@@ -1,42 +1,43 @@
-// namespace("chat.services");
-// chat.services.socketService = function () {
+namespace("chat.services");
 
-//     var self = this; 
-//     self.data = {messages:[]};
+chat.services.socketService = function () {
 
-//     return {
-//         connect : function(serverIp) {
+    var messages = [];
+    var socket;
 
-//             this.socket = io.connect('http://' + serverIp);
-//             this.socket.on('message', function (data) {
+    return {
+        connect: function (serverIp) {
 
-//                 //pre process for links
-//                 var urlPattern = /(http|ftp|https):\/\/[\w\-]+(\.[\w\-]+)+([\w.,@?\^=%&amp;:\/~+#\-]*[\w@?\^=%&amp;\/~+#\-])?/,
-//                     match = urlPattern.exec(data.text);
+            socket = io.connect('http://' + serverIp);
+            socket.on('message', function (payload) {
 
-//                 if (match !== null) {
-//                     data.text = data.text.replace(match[0], "<a href='" + match[0] + "' target='_blank'>" + match[0] +"</a>");
-//                 }
-//                 console.log("Adding message");
-//                 self.data.messages.push(data);
-//                 console.log("messages length: " +self.data.messages.length);
+                //pre process for links
+                var urlPattern = /(http|ftp|https):\/\/[\w\-]+(\.[\w\-]+)+([\w.,@?\^=%&amp;:\/~+#\-]*[\w@?\^=%&amp;\/~+#\-])?/,
+                    match = urlPattern.exec(payload.text);
 
+                if (match !== null) {
+                    payload.text = payload.text.replace(match[0], "<a href='" + match[0] + "' target='_blank'>" + match[0] + "</a>");
+                }
+                console.log("Adding message");
+                messages.push(payload);
+                console.log("messages length: " + messages.length);
 
-//                 //scrollToBottom();
-//             });
-//             this.socket.on('history', function (dataList) {
-//               self.data.messages.push(dataList);   
-//             }); 
+            });
+            socket.on('history', function (dataList) {
+                var i;
+                console.log('Adding message history:', dataList);
+                for (i = 0; i < dataList.length; i++) {
+                    messages.push(dataList[i]);
+                }
+            });
 
-
-//             this.socket.on("connect", function () {
-//                 console.log("connected!");
-//                 console.log(self.socket);      
-//             });
-//         },
-//         emit : function (key, data) {
-//             this.socket.emit(key, data);
-//         },
-//         data : self.data
-//     }
-// };
+            socket.on("connect", function () {
+                console.log("connected!");
+            });
+        },
+        emit: function (key, data) {
+            socket.emit(key, data);
+        },
+        messages: messages
+    }
+};
