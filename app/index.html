@@ -10,7 +10,7 @@
 			
 			<!-- makes the server connection -->
 			<input server placeholder="Enter Server ip address" class="server"/>
-			<div class="count-container">Number of users: <span class="count">0</span></div>
+			<div class="count-container">Number of users: <span class="count">{{count}}</span></div>
 			
 			<section class="messages">				
 				<div ng-repeat="message in messages" scroll-anchor>									
@@ -30,9 +30,13 @@
 		<script type="text/javascript" src="/app/lib/namespace.js"></script>
 		<script type="text/javascript" src="/app/lib/angular.min.js"></script>
 
+        <!--//angular modules-->
+        <script type="text/javascript" src="/app/lib/angular-local-storage.js"></script>
+
 		<script type="text/javascript" src="/app/js/controllers.js"></script>		
 		<script type="text/javascript" src="/app/js/directives.js"></script>		
-		<script type="text/javascript" src="/app/js/services.js"></script>		
+		<script type="text/javascript" src="/app/js/services.js"></script>
+
 
 
 		<script type="text/javascript" src="/app/js/app.js"></script>		

@@ -13,22 +13,22 @@ var chattyApp = angular.module('chattyApp', ['chattyApp.directives']).
 
 chattyApp.factory("socketService", chat.services.socketService);
 
-chattyApp.factory("Timer", function ($timeout) {
-    var data = { lastUpdated: new Date(), calls: 0 };
-
-    var updateTimer = function () {
-        data.lastUpdated = new Date();
-        data.calls += 1;
-        // console.log("updateTimer: " + data.lastUpdated);
-
-        $timeout(updateTimer, 5000);
-    };
-    updateTimer();
-
-    return {
-        data: data
-    };
-});
+//chattyApp.factory("Timer", function ($timeout) {
+//    var data = { lastUpdated: new Date(), calls: 0 };
+//
+//    var updateTimer = function () {
+//        data.lastUpdated = new Date();
+//        data.calls += 1;
+//        // console.log("updateTimer: " + data.lastUpdated);
+//
+//        $timeout(updateTimer, 5000);
+//    };
+//    updateTimer();
+//
+//    return {
+//        data: data
+//    };
+//});
 
 
 /*

@@ -57,6 +57,7 @@ var messageHistory = {
 // keep a running list of the current connections
 var socketManager = {
     sockets: [],
+    connectCount: 0,
     add: function (socket) {
         this.sockets.push(socket);
         this.emit('count', {'count': this.sockets.length});
@@ -77,19 +78,14 @@ var socketManager = {
         }
 
     },
-    emitCount: function () {
-        this.emit('count', {'count': this.sockets.length});
-    },
     size: function () {
         return this.sockets.length;
     }
 };
 
 io.sockets.on('connection', function (socket) {
-    console.log("Connect received! Number of connections = " + this.sockets.length);
-    //sockets.push(socket);
+    socketManager.connectCount++;
     socketManager.add(socket);
-    console.log(socket.id);
     // welcome message
     socket.emit('message', { name: "Server", text: 'Welcome!'});
     if (messageHistory.size() > 0) {
@@ -97,7 +93,8 @@ io.sockets.on('connection', function (socket) {
     }
 
     if (socketManager.size() > -10) {
-        socket.emit('count', {'count': this.sockets.length});
+        console.log('emittting count', socketManager.connectCount);
+        socket.emit('count', {'count': socketManager.connectCount});
     }
 
     socket.on('message', function (data) {
@@ -105,6 +102,8 @@ io.sockets.on('connection', function (socket) {
         socketManager.emit("message", data);
     });
     socket.on('disconnect', function (/*data*/) {
+        socketManager.connectCount--;
         socketManager.remove(socket);
+        socket.emit('count', {'count': socketManager.connectCount});
     });
 });

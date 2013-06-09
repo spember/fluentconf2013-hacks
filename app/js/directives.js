@@ -4,7 +4,7 @@
 /* Directives */
 
 
-angular.module('chattyApp.directives', []).
+angular.module('chattyApp.directives', ['LocalStorageModule']).
     directive('server', function (socketService) {
         var $server = $("input.server");
         //link function
@@ -16,7 +16,7 @@ angular.module('chattyApp.directives', []).
             });
         };
     })
-    .directive('chat', function (socketService) {
+    .directive('chat', function (socketService, localStorageService) {
         var $chat = $("input.message-text"),
             $name = $("input.name");
         return function ($scope, element, attrs) {
@@ -28,7 +28,7 @@ angular.module('chattyApp.directives', []).
                     if (name === undefined || name === "") {
                         name = "Anonymous";
                     }
-                    localStorage.name = name;
+                    localStorageService.set(name, name);
                     socketService.emit('message', {
                         name: name,
                         text: text,
