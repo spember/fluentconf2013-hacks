@@ -3,6 +3,7 @@ function MainCtrl($scope, socket) {
     $scope.messages = [];
     $scope.connectionCount = 0;
     $scope.status = {message:"", type:''};
+    $scope.historySet = false;
 
     $scope.connect = function (serverIp) {
         $scope.$apply(function() {
@@ -25,9 +26,12 @@ function MainCtrl($scope, socket) {
 
         socket.on('history', function (dataList) {
             var i;
-            console.log('Adding message history:', dataList);
-            for (i = 0; i < dataList.length; i++) {
-                $scope.messages.push(dataList[i]);
+            if (!$scope.historySet) {
+                console.log('Adding message history:', dataList);
+                $scope.historySet = true;
+                for (i = 0; i < dataList.length; i++) {
+                    $scope.messages.push(dataList[i]);
+                }
             }
         });
 
