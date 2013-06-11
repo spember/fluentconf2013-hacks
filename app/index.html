@@ -6,11 +6,20 @@
 	</head>
 	<body ng-app="chattyApp">
 		<div ng-controller="MainCtrl" class="bodyWrapper">
-			<h3>This is Chatty Chatty Chat Chat</h3>
-			
+
 			<!-- makes the server connection -->
-			<input server placeholder="Enter Server ip address" class="server"/>
-			<div class="count-container">Number of users: <span class="count">{{count}}</span></div>
+			<div>
+                <input server placeholder="Enter Server ip address" class="server"/>
+                <div class="status"></div>
+            </div>
+
+			<div class="count-container">
+                <ng-pluralize count="connectionCount" when=
+                     "{'0': 'Nobody is chatting.',
+                     'one': 'You are chatting.',
+                     'other': '{} people are chatting.'}">
+                </ng-pluralize>
+            </div>
 			
 			<section class="messages">				
 				<div ng-repeat="message in messages" scroll-anchor>									
@@ -28,10 +37,10 @@
 		<script type="text/javascript" src="/app/lib/zepto.min.js"></script>
 		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 		<script type="text/javascript" src="/app/lib/namespace.js"></script>
-		<script type="text/javascript" src="/app/lib/angular.min.js"></script>
+		<script type="text/javascript" src="/app/lib/angular/angular.js"></script>
 
         <!--//angular modules-->
-        <script type="text/javascript" src="/app/lib/angular-local-storage.js"></script>
+        <script type="text/javascript" src="/app/lib/angular/plugins/angular-local-storage.js"></script>
 
 		<script type="text/javascript" src="/app/js/controllers.js"></script>		
 		<script type="text/javascript" src="/app/js/directives.js"></script>		

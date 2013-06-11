@@ -10,11 +10,14 @@ basePath = '';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
+    ANGULAR_SCENARIO, ANGULAR_SCENARIO_ADAPTER,
 
   //angular libs
-  'app/lib/**/*.js',
+  'app/lib/*.js',
+  'app/lib/angular/*.js',
+  'app/lib/angular/plugins/*.js',
+
   'test/lib/**/*.js',
-  
   'test/unit/**/*Spec.js'
 ];
 

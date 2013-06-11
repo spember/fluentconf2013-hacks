@@ -84,6 +84,7 @@ var socketManager = {
 };
 
 io.sockets.on('connection', function (socket) {
+    console.log('CONNECTION!');
     socketManager.connectCount++;
     socketManager.add(socket);
     // welcome message
@@ -93,7 +94,6 @@ io.sockets.on('connection', function (socket) {
     }
 
     if (socketManager.size() > -10) {
-        console.log('emittting count', socketManager.connectCount);
         socket.emit('count', {'count': socketManager.connectCount});
     }
 

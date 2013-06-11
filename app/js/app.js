@@ -1,17 +1,18 @@
 /*global io */
 'use strict';
-var chattyApp = angular.module('chattyApp', ['chattyApp.directives']).
-    config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/', {
-            controller: MainCtrl
-        });
+
+// Declare app level module which depends on filters, and services
+var app = angular.module('chattyApp', ['chattyApp.services', 'chattyApp.directives']).
+    config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+        $routeProvider.when('/', {controller: MainCtrl});
         $routeProvider.otherwise({redirectTo: '/'});
+        $locationProvider.html5Mode(true);
     }]);
-//TODO: Move to services.js
-//Sets up the socket io connections
 
 
-chattyApp.factory("socketService", chat.services.socketService);
+
+
+//chattyApp.factory("socketService", chat.services.socketService);
 
 //chattyApp.factory("Timer", function ($timeout) {
 //    var data = { lastUpdated: new Date(), calls: 0 };

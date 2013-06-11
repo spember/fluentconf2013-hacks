@@ -5,18 +5,18 @@
 
 
 angular.module('chattyApp.directives', ['LocalStorageModule']).
-    directive('server', function (socketService) {
+    directive('server', function () {
         var $server = $("input.server");
         //link function
         return function (scope, element, attrs) {
             element[0].addEventListener('keypress', function (event) {
                 if (event.which === 13) {
-                    socketService.connect($server.val());
+                    scope.connect($server.val());
                 }
             });
         };
     })
-    .directive('chat', function (socketService, localStorageService) {
+    .directive('chat', function (socket, localStorageService) {
         var $chat = $("input.message-text"),
             $name = $("input.name");
         return function ($scope, element, attrs) {
@@ -29,7 +29,7 @@ angular.module('chattyApp.directives', ['LocalStorageModule']).
                         name = "Anonymous";
                     }
                     localStorageService.set(name, name);
-                    socketService.emit('message', {
+                    socket.emit('message', {
                         name: name,
                         text: text,
                         timestamp: Math.round((new Date()).getTime() / 1000)

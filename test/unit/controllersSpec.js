@@ -30,6 +30,7 @@ describe('ChattyChatChat Controllers', function() {
 
     it('test description', function() {
       expect(1).toEqual(1);
+      console.log('aes');
       // $httpBackend.flush();
 
       expect(scope).toEqualData({});
