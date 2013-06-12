@@ -8,18 +8,15 @@ angular.module('chattyApp.directives', ['LocalStorageModule']).
 
     //Directive used for user to connect to the server.
     directive('server', function (localStorageService) {
-        //TODO remove global jquery selector
-
-        var $server = $("input.server");
 
         //link function
         return function (scope, element, attrs) {
-
             element[0].addEventListener('keypress', function (event) {
+                var value = event.target.value
                 if (event.which === 13) {
-                    scope.connect($server.val());
+                    scope.connect(value);
                     scope.connectingToSocket = true;
-                    localStorageService.set('server', $server.val());
+                    localStorageService.set('server', value);
 
                 }
             });
