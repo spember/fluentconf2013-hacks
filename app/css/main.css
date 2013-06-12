@@ -68,6 +68,14 @@ input.server {
     margin:0;
 }
 
+input.room {
+    display:inline-block;
+    border-radius:0.25em;
+    border:1px solid lightGray;
+    padding:0.5em 1em;
+    margin:0;
+}
+
 .messages {
     overflow-y:scroll;
     position:fixed;

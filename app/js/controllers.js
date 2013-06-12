@@ -1,9 +1,13 @@
-function MainCtrl($scope, socket) {
+function MainCtrl($scope, socket, localStorageService) {
 
     $scope.messages = [];
     $scope.connectionCount = 0;
     $scope.status = {message:"", type:''};
     $scope.historySet = false;
+    $scope.defaultServer = localStorageService.get('server');
+
+
+
 
     $scope.connect = function (serverIp) {
         $scope.$apply(function() {
@@ -27,7 +31,6 @@ function MainCtrl($scope, socket) {
         socket.on('history', function (dataList) {
             var i;
             if (!$scope.historySet) {
-                console.log('Adding message history:', dataList);
                 $scope.historySet = true;
                 for (i = 0; i < dataList.length; i++) {
                     $scope.messages.push(dataList[i]);
@@ -36,9 +39,7 @@ function MainCtrl($scope, socket) {
         });
 
         socket.on('count', function (data) {
-//            $scope.$apply(function() {
-                $scope.connectionCount = data.count;
-//            });
+            $scope.connectionCount = data.count;
         });
 
     }

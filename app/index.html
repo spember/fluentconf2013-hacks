@@ -9,14 +9,14 @@
 
 			<!-- makes the server connection -->
 			<div>
-                <input server placeholder="Enter Server ip address" class="server"/>
+                <input server placeholder="{{defaultServer}}" class="server"/>
+                <input room placeholder="Enter room name" class="room"/>
                 <div class="status"></div>
             </div>
 
 			<div class="count-container">
                 <ng-pluralize count="connectionCount" when=
-                     "{'0': 'Nobody is chatting.',
-                     'one': 'You are chatting.',
+                     "{'one': 'You are alone.',
                      'other': '{} people are chatting.'}">
                 </ng-pluralize>
             </div>
