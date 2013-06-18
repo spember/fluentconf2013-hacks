@@ -58,6 +58,9 @@ var messageHistory = {
 var socketManager = {
     sockets: [],
     connectCount: 0,
+    rooms : {
+        'default' : []
+    },
     add: function (socket) {
         this.sockets.push(socket);
         this.emit('count', {'count': this.sockets.length});
@@ -88,6 +91,8 @@ io.sockets.on('connection', function (socket) {
     socketManager.add(socket);
     // welcome message
     socket.emit('message', { name: "Server", text: 'Welcome!'});
+
+    //TODO isn't this going to emit the history to everyone everytime anyone connects?
     if (messageHistory.size() > 0) {
         socket.emit('history', messageHistory.messages);
     }
@@ -95,6 +100,8 @@ io.sockets.on('connection', function (socket) {
     if (socketManager.size() > -10) {
         socket.emit('count', {'count': socketManager.connectCount});
     }
+
+    socket.emit('rooms', socketManager.rooms);
 
     socket.on('message', function (data) {
         messageHistory.add(data);
